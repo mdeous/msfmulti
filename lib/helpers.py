@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from netaddr import iter_nmap_range
 
 
 def add_rpc_parser(main_parser):
@@ -36,11 +37,9 @@ def add_rpc_parser(main_parser):
     )
 
 
-def explode_ranges(ranges):
+def explode_ip_ranges(ranges):
+    result = []
     for r in ranges.split(','):
-        if '-' in r:
-            start, end = r.split('-')
-            for item in range(int(start), int(end)+1):
-                yield item
-        else:
-            yield int(r)
+        for ip in iter_nmap_range(r):
+            result.append(str(ip))
+    return result

