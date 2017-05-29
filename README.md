@@ -1,9 +1,7 @@
 # MsfMulti
 
-MsfMulti is a set of scripts to ease some tasks using metasploit during large scope engagements.
-
-* `multisploit.py` - Run a given sploit against multiple targets
-* `multipost.py` - Run a given `post` module against multiple sessions
+`msfmulti.py` is a script meant to run a given metasploit exploit against 
+multiple targets. It is particularly useful during large scope engagements.
 
 
 ## Dependencies
@@ -12,18 +10,13 @@ MsfMulti is a set of scripts to ease some tasks using metasploit during large sc
 * requests
 
 
-## Scripts
+## Usage
 
-All the scripts rely on Metasploit's RPC interface, before using any script make sure you have
-loaded the `msgrpc` module from the console with the `load msgrpc` command.
+The script relies on Metasploit's RPC interface, before using it make sure you 
+have loaded the `msgrpc` module from the console with the `load msgrpc` command.
 
-
-### multisploit.py
-
-Run a given exploit against multiple targets.
-
-Before running this script, you must have started the payload handler as a job from the console,
-with the `ExitOnSession` option set to `false`.
+Before running this script, you must also have started the payload handler as a 
+job from the console (with `ExitOnSession` set to `false`).
 
 Example:
 
