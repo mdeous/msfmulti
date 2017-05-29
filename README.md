@@ -2,6 +2,9 @@
 
 MsfMulti is a set of scripts to ease some tasks using metasploit during large scope engagements.
 
+* `multisploit.py` - Run a given sploit against multiple targets
+* `multipost.py` - Run a given `post` module against multiple sessions
+
 
 ## Dependencies
 
